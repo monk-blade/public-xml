@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS Feeds</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .feed {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+        .feed:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .feed-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .feed-url {
+            margin: 10px 0;
+        }
+        .feed-url a {
+            color: #3498db;
+            text-decoration: none;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+            padding: 5px 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            word-break: break-all;
+        }
+        .feed-url a:hover {
+            background: #d5dbdb;
+        }
+        .feed-description {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        .updated {
+            color: #95a5a6;
+            font-size: 0.9em;
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .feed-count {
+            background: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 RSS Feed Collection</h1>
+        <div class="feed-count">EOF
+    
+    echo "        ${#FEED_ORDER[@]} Active Feeds" >> "$output_file"
+    
+    cat >> "$output_file" << 'EOF'
+        </div>
+    </div>
+    
+    <div class="feed">
+        <div class="feed-title">Reddit Technology</div>
+        <div class="feed-url">
+            <a href="feeds/reddit-tech.xml">feeds/reddit-tech.xml</a>
+        </div>
+        <div class="feed-description">Source: http://192.168.1.132:8675/?platform=reddit&subreddit=technology&averagePostsPerDay=3&content&view=rss</div>
+    </div>
+    
+    <div class="feed">
+        <div class="feed-title">Letterfeed Newsletter</div>
+        <div class="feed-url">
+            <a href="feeds/letterfeed.xml">feeds/letterfeed.xml</a>
+        </div>
+        <div class="feed-description">Source: http://192.168.1.133:3000/feeds/dKNjw0Lr7r</div>
+    </div>
+    
+    <div class="updated">
+        Last updated: 2025-09-06 16:12:42 UTC
+    </div>
+</body>
+</html>
