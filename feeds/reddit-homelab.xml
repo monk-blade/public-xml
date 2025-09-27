@@ -1,11 +1,2 @@
-<br />
-<b>Fatal error</b>:  Uncaught TypeError: Cannot access offset of type string on string in /app/classes/post.php:724
-Stack trace:
-#0 /app/classes/post.php(584): Post\Post-&gt;getCommentsHTML()
-#1 /app/classes/post.php(149): Post\Post-&gt;getSeparators()
-#2 /app/classes/rss.php(214): Post\Post-&gt;getFeedItemDescription()
-#3 /app/classes/rss.php(34): RSS-&gt;loopThroughPosts()
-#4 /app/views/rss.php(4): RSS-&gt;generateRSS()
-#5 /app/index.php(29): include('/app/views/rss....')
-#6 {main}
-  thrown in <b>/app/classes/post.php</b> on line <b>724</b><br />
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><atom:link href="http://192.168.1.132/?platform=reddit&amp;subreddit=homelab&amp;averagePostsPerDay=9&amp;content=0&amp;comments=7&amp;view=rss" rel="self" type="application/rss+xml"/><title>/r/homelab</title><description>Hot posts in /r/homelab (roughly 9 posts per day)</description><link>https://www.reddit.com/r/homelab/</link><language>en-us</language><lastBuildDate>Sat, 27 Sep 2025 17:46:53 +0000</lastBuildDate><generator>Upvote RSS</generator><image><url>http://192.168.1.132//app/cache/images/b-thumbs-redditmedia-com-Flac-ySmslzY0SE583PNA42rFbcYxLt7hqgCeUrC11s-144x400.png</url><title>/r/homelab</title><link>https://www.reddit.com/r/homelab/</link><width>144</width><height>144</height></image></channel></rss>
