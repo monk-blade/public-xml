@@ -39,9 +39,33 @@ jobs:
           # Copy all feed files in one operation
           [ -d "feeds" ] && find feeds -type f \( -name "*.xml" -o -name "*.rss" -o -name "*.atom" -o -name "*.json" \) -exec cp {} _site/feeds/ \; || true
           
+          # Count feeds dynamically and update index.html
+          FEED_COUNT=$(find feeds -type f \( -name "*.xml" -o -name "*.rss" -o -name "*.atom" -o -name "*.json" \) | wc -l)
+          sed -i "s/20 Active Feeds/${FEED_COUNT} Active Feeds/g" _site/index.html
+          
           # List what we're deploying
           echo "Site contents:"
           find _site -type f | sort
+      
+      - name: Minify CSS and HTML
+        run: |
+          # Install minification tools
+          npm install -g clean-css-cli html-minifier
+          
+          # Minify CSS
+          cleancss -o _site/styles.min.css _site/styles.css
+          rm _site/styles.css
+          
+          # Update HTML to reference minified CSS
+          sed -i 's/styles\.css/styles.min.css/g' _site/index.html
+          
+          # Minify HTML
+          html-minifier --collapse-whitespace --remove-comments --minify-css true --minify-js true -o _site/index.min.html _site/index.html
+          mv _site/index.min.html _site/index.html
+          
+          # Show size savings
+          echo "Optimized file sizes:"
+          ls -lh _site/index.html _site/styles.min.css
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
