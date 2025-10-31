@@ -6,20 +6,18 @@ body {
     line-height: 1.6;
     background-color: #f8f9fa;
 }
+.header, .feed, .updated {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+}
 .header {
     text-align: center;
     margin-bottom: 40px;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 .feed {
     margin: 20px 0;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     transition: transform 0.2s ease;
 }
 .feed:hover {
@@ -58,10 +56,6 @@ body {
     font-size: 0.9em;
     text-align: center;
     margin-top: 40px;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 .feed-count {
     background: #3498db;
