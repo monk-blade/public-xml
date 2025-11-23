@@ -1,0 +1,68 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+}
+.header, .feed, .updated {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.feed {
+    margin: 20px 0;
+    transition: transform 0.2s ease;
+}
+.feed:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.feed-title {
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+.feed-url {
+    margin: 10px 0;
+}
+.feed-url a {
+    color: #3498db;
+    text-decoration: none;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    background: #ecf0f1;
+    border-radius: 5px;
+    word-break: break-all;
+}
+.feed-url a:hover {
+    background: #d5dbdb;
+}
+.feed-description {
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 10px;
+}
+.updated {
+    color: #95a5a6;
+    font-size: 0.9em;
+    text-align: center;
+    margin-top: 40px;
+}
+.feed-count {
+    background: #3498db;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    display: inline-block;
+    margin-bottom: 20px;
+}

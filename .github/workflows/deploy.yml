@@ -33,98 +33,41 @@ jobs:
           # Create the site directory structure
           mkdir -p _site/feeds
           
-          # Copy index.html if it exists, otherwise create a basic one
-          if [ -f "index.html" ]; then
-            cp index.html _site/
+          # Copy static files
+          cp index.html styles.css _site/
+          
+          # Copy all feed files and count them in one pass
+          FEED_FILES=$(find feeds -type f \( -name "*.xml" -o -name "*.rss" -o -name "*.atom" -o -name "*.json" \) 2>/dev/null || true)
+          if [ -n "$FEED_FILES" ]; then
+            echo "$FEED_FILES" | xargs -I {} cp {} _site/feeds/
+            FEED_COUNT=$(echo "$FEED_FILES" | wc -l)
           else
-            cat > _site/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>RSS Feeds</title>
-              <style>
-                  body {
-                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-                      max-width: 900px;
-                      margin: 0 auto;
-                      padding: 20px;
-                      line-height: 1.6;
-                      background-color: #f8f9fa;
-                  }
-                  .header {
-                      text-align: center;
-                      margin-bottom: 40px;
-                      padding: 20px;
-                      background: white;
-                      border-radius: 10px;
-                      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                  }
-                  .feed {
-                      margin: 20px 0;
-                      padding: 20px;
-                      background: white;
-                      border-radius: 10px;
-                      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                  }
-                  .feed-title {
-                      font-size: 1.3em;
-                      font-weight: 600;
-                      margin-bottom: 10px;
-                      color: #2c3e50;
-                  }
-                  .feed-url a {
-                      color: #3498db;
-                      text-decoration: none;
-                  }
-                  .updated {
-                      color: #95a5a6;
-                      font-size: 0.9em;
-                      text-align: center;
-                      margin-top: 40px;
-                      padding: 20px;
-                      background: white;
-                      border-radius: 10px;
-                      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                  }
-              </style>
-          </head>
-          <body>
-              <div class="header">
-                  <h1>🎯 RSS Feed Collection</h1>
-              </div>
-              
-              <div class="feed">
-                  <div class="feed-title">RSS Feeds</div>
-                  <p>RSS feed files will appear here when uploaded.</p>
-              </div>
-              
-              <div class="updated">
-                  Last updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
-              </div>
-          </body>
-          </html>
-          EOF
+            FEED_COUNT=0
           fi
           
-          # Copy all XML/RSS feed files to the feeds directory
-          if ls feeds/*.xml 1> /dev/null 2>&1; then
-            cp feeds/*.xml _site/feeds/
-          fi
-          
-          if ls feeds/*.rss 1> /dev/null 2>&1; then
-            cp feeds/*.rss _site/feeds/
-          fi
-          
-          # Copy any other feed files that might exist
-          if [ -d "feeds" ]; then
-            find feeds -type f \( -name "*.xml" -o -name "*.rss" -o -name "*.atom" -o -name "*.json" \) -exec cp {} _site/feeds/ \;
-          fi
+          # Update feed count in HTML using placeholder token
+          sed -i "s/{{FEED_COUNT}}/${FEED_COUNT}/g" _site/index.html
           
           # List what we're deploying
           echo "Site contents:"
           find _site -type f | sort
+      
+      - name: Minify CSS and HTML
+        run: |
+          # Install minification tools
+          npm install -g clean-css-cli html-minifier
+          
+          # Minify CSS and update HTML reference in one step
+          cleancss -o _site/styles.min.css _site/styles.css
+          sed -i 's|<link rel="stylesheet" href="styles\.css">|<link rel="stylesheet" href="styles.min.css">|g' _site/index.html
+          
+          # Minify HTML in place
+          html-minifier --collapse-whitespace --remove-comments --minify-css true --minify-js true -o _site/index.html _site/index.html
+          
+          # Clean up unminified CSS and show size savings
+          rm _site/styles.css
+          echo "Optimized file sizes:"
+          ls -lh _site/index.html _site/styles.min.css
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
